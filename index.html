@@ -1,0 +1,1091 @@
+<!DOCTYPE html>img
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ala Eddine Amamra — Full Stack & AI Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #080808;
+    --white: #f5f5f3;
+    --gray: #888;
+    --gray-light: #ccc;
+    --gray-dark: #333;
+    --accent: #e8e8e8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  #cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--white);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    mix-blend-mode: difference;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  body:hover #cursor { opacity: 1; }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 28px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.1rem;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--white);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(80px, 80px); }
+  }
+
+  .hero-photo-container {
+    position: relative;
+    margin-bottom: 40px;
+    animation: fadeInDown 1s ease 0.2s both;
+  }
+  .hero-photo-ring {
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    animation: rotateSlow 12s linear infinite;
+  }
+  .hero-photo-ring::before {
+    content: '';
+    position: absolute; top: -3px; left: 50%;
+    width: 6px; height: 6px;
+    background: var(--white);
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .hero-photo {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid rgba(255,255,255,0.1);
+    filter: grayscale(20%);
+    transition: filter 0.5s;
+  }
+  .hero-photo:hover { filter: grayscale(0%); }
+
+  .hero-photo-placeholder {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a1a1a, #333);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem; font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gray);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease 0.4s both;
+  }
+
+  .hero-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+    animation: fadeInDown 1s ease 0.5s both;
+  }
+  .hero-name span {
+    display: block;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    animation: fadeInDown 1s ease 0.6s both;
+  }
+
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeInDown 1s ease 0.7s both;
+  }
+  .btn-primary {
+    padding: 14px 36px;
+    background: var(--white);
+    color: var(--black);
+    border: none; border-radius: 2px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    cursor: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--gray-light);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    padding: 14px 36px;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 2px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500; font-size: 0.9rem;
+    cursor: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover {
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-2px);
+  }
+
+  .scroll-indicator {
+    position: absolute; bottom: 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: fadeInDown 1s ease 1s both;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.5; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+  .scroll-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: var(--gray);
+    letter-spacing: 0.15em; writing-mode: vertical-rl;
+  }
+
+  /* 3D SECTION */
+  #interactive {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    padding: 100px 40px;
+  }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--gray);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.8s ease;
+  }
+  .section-eyebrow.visible { opacity: 1; transform: translateY(0); }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    text-align: center; margin-bottom: 60px;
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.8s ease 0.1s;
+  }
+  .section-title.visible { opacity: 1; transform: translateY(0); }
+
+  #canvas-container {
+    width: 600px; max-width: 90vw;
+    height: 500px;
+    position: relative;
+  }
+  #three-canvas { display: block; border-radius: 4px; }
+
+  .canvas-hint {
+    text-align: center; margin-top: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; color: var(--gray);
+    letter-spacing: 0.1em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* SKILLS */
+  #skills {
+    padding: 120px 60px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-top: 60px;
+  }
+  .skill-card {
+    background: var(--black);
+    padding: 40px 36px;
+    transition: background 0.4s;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s;
+  }
+  .skill-card.visible { opacity: 1; transform: translateY(0); }
+  .skill-card:hover { background: #111; }
+  .skill-card-icon {
+    font-size: 1.5rem; margin-bottom: 20px;
+    display: block;
+  }
+  .skill-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 1rem;
+    margin-bottom: 16px; color: var(--white);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--gray);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .skill-card:hover .skill-tag { border-color: rgba(255,255,255,0.25); color: var(--gray-light); }
+
+  /* PROJECTS */
+  #projects {
+    padding: 120px 60px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .projects-list { margin-top: 60px; }
+  .project-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: start;
+    gap: 40px;
+    padding: 48px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    opacity: 0; transform: translateX(-30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    cursor: none;
+  }
+  .project-item.visible { opacity: 1; transform: translateX(0); }
+  .project-item:hover .project-arrow { transform: translate(4px,-4px); }
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--gray);
+    letter-spacing: 0.1em; padding-top: 6px;
+  }
+  .project-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 700; letter-spacing: -0.02em;
+    margin-bottom: 12px; color: var(--white);
+    transition: color 0.3s;
+  }
+  .project-item:hover .project-name { color: var(--gray-light); }
+  .project-desc {
+    font-size: 0.9rem; color: var(--gray);
+    line-height: 1.6; max-width: 600px; margin-bottom: 20px;
+  }
+  .project-tech {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .project-tech span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--gray);
+    border-radius: 2px;
+  }
+  .project-arrow {
+    font-size: 1.4rem; color: rgba(255,255,255,0.2);
+    transition: transform 0.3s, color 0.3s;
+    padding-top: 4px;
+  }
+  .project-item:hover .project-arrow { color: var(--white); }
+
+  /* ABOUT */
+  #about {
+    padding: 120px 60px;
+    max-width: 1200px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-box {
+    background: var(--black);
+    padding: 36px 28px;
+    transition: background 0.3s;
+  }
+  .stat-box:hover { background: #111; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem; font-weight: 700;
+    letter-spacing: -0.04em;
+    display: block; margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  /* CONTACT */
+  #contact {
+    padding: 120px 60px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .contact-big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; margin-bottom: 40px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .contact-links {
+    display: flex; justify-content: center;
+    flex-wrap: wrap; gap: 24px; margin-bottom: 60px;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--gray); text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem; letter-spacing: 0.05em;
+    transition: color 0.3s;
+    padding: 12px 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+  }
+  .contact-link:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: rgba(255,255,255,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Glitch text effect */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glitch::before {
+    animation: glitch1 4s infinite;
+    clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+  }
+  .glitch::after {
+    animation: glitch2 4s infinite;
+    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+  }
+  @keyframes glitch1 {
+    0%,90%,100% { transform: none; opacity: 0; }
+    92% { transform: translateX(-3px); opacity: 0.8; }
+    94% { transform: translateX(3px); opacity: 0.5; }
+    96% { transform: none; opacity: 0; }
+  }
+  @keyframes glitch2 {
+    0%,90%,100% { transform: none; opacity: 0; }
+    93% { transform: translateX(3px); opacity: 0.6; }
+    95% { transform: translateX(-2px); opacity: 0.4; }
+    97% { transform: none; opacity: 0; }
+  }
+
+  /* Loading screen */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--black);
+    z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-inner {
+    text-align: center;
+  }
+  .loader-bar {
+    width: 200px; height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 20px auto 0;
+    position: relative; overflow: hidden;
+  }
+  .loader-bar::after {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: var(--white);
+    animation: load 1.5s ease forwards;
+  }
+  @keyframes load {
+    to { left: 0; }
+  }
+  .loader-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem; font-weight: 600;
+    letter-spacing: 0.1em; color: var(--white);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #skills, #projects, #contact { padding: 80px 24px; }
+    #about { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+    .project-item { grid-template-columns: 1fr; gap: 16px; }
+    .project-num { display: none; }
+    footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-name">ALA EDDINE</div>
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">AEA<span style="color:var(--gray)">.</span></a>
+  <ul class="nav-links">
+    <li><a href="#interactive">3D</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-photo-container">
+    <div class="hero-photo-ring"></div>
+    <!-- صورة placeholder — ضع صورتك بدلاً منها -->
+    <!-- <div class="hero-photo-placeholder">AA</div>-->
+    <!-- إذا أردت إضافة صورتك أزل الـ div أعلاه وأضف: -->
+    <img src="mypropic.jpg" alt="Ala Eddine Amamra" class="hero-photo">
+  </div>
+
+  <div class="hero-tag">Full Stack · AI Automation · Python</div>
+
+  <h1 class="hero-name">
+    <span class="glitch" data-text="Ala Eddine">Ala Eddine</span>
+    <span class="glitch" data-text="Amamra">Amamra</span>
+  </h1>
+
+  <p class="hero-desc">
+    Building intelligent web systems and AI-powered automations that solve real business problems — from Sétif, Algeria.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Work</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">SCROLL</span>
+  </div>
+</section>
+
+<!-- 3D INTERACTIVE -->
+<section id="interactive">
+  <div class="section-eyebrow">— Interactive —</div>
+  <h2 class="section-title">Move Your Mouse</h2>
+  <div id="canvas-container">
+    <canvas id="three-canvas"></canvas>
+  </div>
+  <p class="canvas-hint">// hover to repel · move away to rebuild</p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow">— Tech Stack —</div>
+  <h2 class="section-title">What I Work With</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-card-icon">⚡</span>
+      <div class="skill-card-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">Tailwind CSS</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">🔧</span>
+      <div class="skill-card-title">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MongoDB</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">🤖</span>
+      <div class="skill-card-title">AI & Automation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">OpenAI API</span>
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">AI Agents</span>
+        <span class="skill-tag">Prompt Engineering</span>
+        <span class="skill-tag">Workflow Automation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">🛠</span>
+      <div class="skill-card-title">Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Postman</span>
+        <span class="skill-tag">MySQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow">— Selected Work —</div>
+  <h2 class="section-title">Projects</h2>
+
+  <div class="projects-list">
+    <div class="project-item">
+      <div class="project-num">01</div>
+      <div>
+        <div class="project-name">AI Dental Clinic Assistant</div>
+        <div class="project-desc">
+          WhatsApp-integrated AI assistant for dental clinics — handles appointment booking, confirmation, cancellation, patient data storage, and anti-duplicate messaging with fully automated n8n workflows.
+        </div>
+        <div class="project-tech">
+          <span>Python</span><span>OpenAI</span><span>n8n</span><span>WhatsApp API</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">02</div>
+      <div>
+        <div class="project-name">Language Academy Website</div>
+        <div class="project-desc">
+          Modern Arabic-first website for a language academy featuring responsive design, teacher profiles, course catalog, and online booking — built with the latest React ecosystem.
+        </div>
+        <div class="project-tech">
+          <span>React</span><span>Next.js</span><span>Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">03</div>
+      <div>
+        <div class="project-name">AI Workflow Automation Systems</div>
+        <div class="project-desc">
+          Multiple business automation pipelines including AI chatbots, customer support, lead management, and appointment systems — replacing manual processes with intelligent workflows.
+        </div>
+        <div class="project-tech">
+          <span>n8n</span><span>OpenAI</span><span>APIs</span><span>Python</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <div class="section-eyebrow">— About Me —</div>
+    <h2 class="section-title" style="text-align:left; margin-bottom: 36px;">The Story</h2>
+    <div class="about-text">
+      <p>
+        I'm a <strong>Full Stack & AI Automation Developer</strong> based in Sétif, Algeria — currently studying Electrical Engineering while building real-world software solutions.
+      </p>
+      <p>
+        My focus is on bridging the gap between modern web development and AI — creating systems that don't just look good but <strong>work intelligently</strong>.
+      </p>
+      <p>
+        I work across the full stack: from pixel-perfect frontends to robust Python backends and fully automated n8n workflows powered by OpenAI.
+      </p>
+    </div>
+  </div>
+
+  <div class="about-stats">
+    <div class="stat-box">
+      <span class="stat-num">3+</span>
+      <span class="stat-label">LIVE PROJECTS</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">5+</span>
+      <span class="stat-label">TECH STACKS</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">PROBLEMS SOLVED</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">01</span>
+      <span class="stat-label">GOAL: EXCELLENCE</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">— Let's Talk —</div>
+  <div class="contact-big">Get In Touch</div>
+
+  <div class="contact-links">
+    <a href="mailto:alaaalaaamamra102@gmail.com" class="contact-link">
+      <span>✉</span> alaaalaaamamra102@gmail.com
+    </a>
+    <a href="tel:+213666432265" class="contact-link">
+      <span>📞</span> +213 666 432 265
+    </a>
+    <a href="https://www.linkedin.com/in/ala-eddine-8263253b5" target="_blank" class="contact-link">
+      <span>in</span> LinkedIn
+    </a>
+    <a href="https://github.com/alaaeddineamamra" target="_blank" class="contact-link">
+      <span>⌥</span> GitHub
+    </a>
+  </div>
+
+  <a href="mailto:alaaalaaamamra102@gmail.com" class="btn-primary">Start a Project →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Ala Eddine Amamra</p>
+  <p>Sétif, Algeria · Available for Freelance</p>
+</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+// ─── LOADER ───────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1800);
+});
+
+// ─── CURSOR ───────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = -100, my = -100;
+let rx = -100, ry = -100;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) *.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+    ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+    ring.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+});
+
+// ─── SCROLL REVEAL ───────────────────────────────
+const reveals = document.querySelectorAll('.section-eyebrow, .section-title, .skill-card, .project-item');
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      const delay = e.target.classList.contains('skill-card') || e.target.classList.contains('project-item')
+        ? Array.from(e.target.parentElement.children).indexOf(e.target) * 100
+        : 0;
+      setTimeout(() => e.target.classList.add('visible'), delay);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => io.observe(el));
+
+// ─── THREE.JS 3D PARTICLE SYSTEM ─────────────────
+(function() {
+  const canvas = document.getElementById('three-canvas');
+  const container = document.getElementById('canvas-container');
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+  camera.position.z = 5;
+
+  function resize() {
+    const w = container.offsetWidth;
+    const h = Math.min(500, window.innerHeight * 0.6);
+    canvas.width = w; canvas.height = h;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Particle sphere geometry
+  const N = 1200;
+  const positions = new Float32Array(N * 3);
+  const originalPos = new Float32Array(N * 3);
+  const velocities = new Float32Array(N * 3);
+  const sizes = new Float32Array(N);
+
+  const R = 2;
+  for (let i = 0; i < N; i++) {
+    // Fibonacci sphere distribution
+    const phi = Math.acos(1 - 2 * (i + 0.5) / N);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+    const x = R * Math.sin(phi) * Math.cos(theta);
+    const y = R * Math.sin(phi) * Math.sin(theta);
+    const z = R * Math.cos(phi);
+    positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
+    originalPos[i*3] = x; originalPos[i*3+1] = y; originalPos[i*3+2] = z;
+    velocities[i*3] = 0; velocities[i*3+1] = 0; velocities[i*3+2] = 0;
+    sizes[i] = 2 + Math.random() * 3;
+  }
+
+  // Inner particles (constellation lines feel)
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {
+      uColor: { value: new THREE.Color(1, 1, 1) },
+      uTime: { value: 0 }
+    },
+    vertexShader: `
+      attribute float size;
+      uniform float uTime;
+      void main() {
+        vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = size * (3.5 / -mvPos.z);
+        gl_Position = projectionMatrix * mvPos;
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 uColor;
+      void main() {
+        float d = length(gl_PointCoord - vec2(0.5));
+        if (d > 0.5) discard;
+        float alpha = 1.0 - smoothstep(0.3, 0.5, d);
+        gl_FragColor = vec4(uColor, alpha * 0.9);
+      }
+    `,
+    transparent: true,
+    depthWrite: false
+  });
+
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  // Connection lines between nearby particles
+  const lineGeo = new THREE.BufferGeometry();
+  const maxLines = 600;
+  const linePos = new Float32Array(maxLines * 6);
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
+
+  const lineMat = new THREE.LineBasicMaterial({
+    color: 0xffffff, transparent: true, opacity: 0.08
+  });
+  const lineSegments = new THREE.LineSegments(lineGeo, lineMat);
+  scene.add(lineSegments);
+
+  // Mouse in 3D space
+  let mouse3D = new THREE.Vector3(9999, 9999, 9999);
+  let mouseRaw = { x: -1, y: -1 };
+  const repelRadius = 1.2;
+  const repelStrength = 0.025;
+  const spring = 0.03;
+  const damping = 0.88;
+  let isHovering = false;
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouseRaw.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouseRaw.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    isHovering = true;
+  });
+  canvas.addEventListener('mouseleave', () => {
+    isHovering = false;
+    mouse3D.set(9999, 9999, 9999);
+  });
+
+  let t = 0;
+  let rotY = 0;
+  let rotX = 0;
+  let targetRotY = 0;
+  let targetRotX = 0;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.006;
+
+    // Update mouse 3D position
+    if (isHovering) {
+      const vec = new THREE.Vector3(mouseRaw.x * 2.5, mouseRaw.y * 1.5, 1.5);
+      vec.unproject(camera);
+      vec.sub(camera.position).normalize();
+      const dist = (camera.position.z - 0) / vec.z;
+      mouse3D.copy(camera.position).addScaledVector(vec, -dist);
+      targetRotY = mouseRaw.x * 0.4;
+      targetRotX = -mouseRaw.y * 0.3;
+    } else {
+      targetRotY = t * 0.15;
+      targetRotX = Math.sin(t * 0.3) * 0.1;
+    }
+
+    rotY += (targetRotY - rotY) * 0.04;
+    rotX += (targetRotX - rotX) * 0.04;
+    particles.rotation.y = rotY;
+    particles.rotation.x = rotX;
+    lineSegments.rotation.y = rotY;
+    lineSegments.rotation.x = rotX;
+
+    // Update particles
+    const pos = geo.attributes.position.array;
+
+    for (let i = 0; i < N; i++) {
+      const ix = i*3, iy = i*3+1, iz = i*3+2;
+
+      // World position
+      const wx = pos[ix], wy = pos[iy], wz = pos[iz];
+
+      // Repel from mouse
+      const dx = wx - mouse3D.x;
+      const dy = wy - mouse3D.y;
+      const dz = wz - mouse3D.z;
+      const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+      if (dist < repelRadius && isHovering) {
+        const force = (repelRadius - dist) / repelRadius;
+        const f = force * force * repelStrength * 6;
+        velocities[ix] += (dx / dist) * f;
+        velocities[iy] += (dy / dist) * f;
+        velocities[iz] += (dz / dist) * f;
+      }
+
+      // Spring back to original + gentle wave
+      const ox = originalPos[ix] + Math.sin(t * 0.7 + i * 0.05) * 0.04;
+      const oy = originalPos[iy] + Math.cos(t * 0.5 + i * 0.07) * 0.04;
+      const oz = originalPos[iz] + Math.sin(t * 0.9 + i * 0.03) * 0.03;
+
+      velocities[ix] += (ox - pos[ix]) * spring;
+      velocities[iy] += (oy - pos[iy]) * spring;
+      velocities[iz] += (oz - pos[iz]) * spring;
+
+      velocities[ix] *= damping;
+      velocities[iy] *= damping;
+      velocities[iz] *= damping;
+
+      pos[ix] += velocities[ix];
+      pos[iy] += velocities[iy];
+      pos[iz] += velocities[iz];
+    }
+    geo.attributes.position.needsUpdate = true;
+
+    // Update connection lines
+    let lc = 0;
+    const lp = linePos;
+    const step = 8; // skip some for perf
+    for (let i = 0; i < N && lc < maxLines; i += step) {
+      for (let j = i + step; j < N && lc < maxLines; j += step) {
+        const ax = pos[i*3], ay = pos[i*3+1], az = pos[i*3+2];
+        const bx = pos[j*3], by = pos[j*3+1], bz = pos[j*3+2];
+        const d2 = (ax-bx)**2 + (ay-by)**2 + (az-bz)**2;
+        if (d2 < 0.5) {
+          const base = lc * 6;
+          lp[base]=ax; lp[base+1]=ay; lp[base+2]=az;
+          lp[base+3]=bx; lp[base+4]=by; lp[base+5]=bz;
+          lc++;
+        }
+      }
+    }
+    lineGeo.attributes.position.needsUpdate = true;
+    lineGeo.setDrawRange(0, lc * 2);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
+</body>
+</html>
